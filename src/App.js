@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchWeather } from './actions/fetchWeather';
+import Details from './components/Details';
 
-import './App.css';
+import './style/main.css';
 
 function App() {
 
@@ -28,14 +29,7 @@ function App() {
 
   let details = "";
   if (weatherSelector.weatherinfo && weatherSelector.weatherinfo.hasOwnProperty("location")) {
-    details = <div className="details">
-      <h3>Weather Details</h3>
-      <p>{weatherSelector.weatherinfo.location.name}
-        <span> {weatherSelector.weatherinfo.location.country}</span>
-      </p>
-      <p>{weatherSelector.weatherinfo.current.temperature} &#730;C</p>
-      <img src={weatherSelector.weatherinfo.current.weather_icons.[0]} />
-    </div>
+    details = <Details/>
   } else {
     details = <p>Type a proper city name</p>
   }
@@ -51,7 +45,7 @@ function App() {
           <div className="control">
             <input type="text" name="name" placeholder="City to check weather, Ex: Paris" onChange={e => setCity(e.target.value)} />
           </div>
-          <input type="submit" value="Check Weather" />
+          <button type="submit">Check Weather</button>
         </form>
         {details}
       </main>
